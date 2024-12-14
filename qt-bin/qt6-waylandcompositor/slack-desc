@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+                     |-----handy-ruler------------------------------------------------------|
+qt6-waylandcompositor: qt6-waylandcompositor (Wayland Compositor)
+qt6-waylandcompositor:
+qt6-waylandcompositor: The Qt Wayland Compositor is a module that provides convenient
+qt6-waylandcompositor: and powerful QML and C++ APIs for developing custom display server
+qt6-waylandcompositor: based on the Wayland protocol.The display server, often called a
+qt6-waylandcompositor: compositor, displays content from client applications that
+qt6-waylandcompositor: support the Wayland protocol.
+qt6-waylandcompositor:
+qt6-waylandcompositor:
+qt6-waylandcompositor: Homepage:https://qt.io
+qt6-waylandcompositor:

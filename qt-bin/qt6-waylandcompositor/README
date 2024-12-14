@@ -1,0 +1,6 @@
+The Qt Wayland Compositor is a module that provides 
+convenient and powerful QML and C++ APIs for developing 
+custom display servers based on the Wayland protocol. 
+The display server, often called a compositor, displays 
+content from client applications that support the 
+Wayland protocol.

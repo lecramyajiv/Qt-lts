@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+       |-----handy-ruler------------------------------------------------------|
+qt6-icu: qt6-icu (Unicode Library)
+qt6-icu:
+qt6-icu: ICU is a mature, widely used set of C/C++ and Java libraries
+qt6-icu: providing Unicode and Globalization support for software applications
+qt6-icu: ICU is widely portable and gives applications the same results
+qt6-icu: on all platforms and between C/C++ and Java software.
+qt6-icu:
+qt6-icu:
+qt6-icu:
+qt6-icu: Homepage:https://qt.io
+qt6-icu:
