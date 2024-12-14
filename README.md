@@ -14,9 +14,10 @@ available. This is an unofficial binary
 installation. It downloads the binaries from the
 official qt website and installs them.
 you can view them [here](https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_681/qt6_681/)
+and [here](https://download.qt.io/online/qtsdkrepository/linux_x64/extensions/)
 
 You can download the official Qt installer from the
-Qt.io website.You need a Qt account in order to use the installer.
+Qt website.You need a Qt account in order to use the installer.
 
 The attic folder contains broken and non working
 slackbuilds I may revisit them in the future.
