@@ -1,0 +1,259 @@
+#!/bin/bash
+
+# Slackware build script for qtcreator
+
+# Copyright 2024 Vijay Marcel
+# All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+#       http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+cd $(dirname $0) ; CWD=$(pwd)
+
+PRGNAM=qtcreator
+VERSION=${VERSION:-15.0.0}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_lec}
+PKGTYPE=${PKGTYPE:-tbz}
+SRCNAM=${SRCNAM:-15.0.0-0-202411130411preview-qtcreator}
+nprocr=$(expr $(nproc) + 1)
+sys_arch=${sys_arch:-$(uname -m)}
+
+case "$sys_arch" in
+     	x86_64) export ARCH=x86_64 ;;
+	     *) echo "This SlackBuild will not run on $sys_arch platform" && exit 1 ;;
+esac
+
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  exit 0
+fi
+
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+set -e
+trap 'echo "$0 FAILED at line $LINENO!" | tee -a $OUTPUT/error-${PRGNAM}.log' ERR
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $SRCNAM-$VERSION
+rm -rf $SRCNAM
+mkdir -pv $PKG/opt/qtcreator
+bsdtar -xf $CWD/$SRCNAM.7z -C $PKG/opt/qtcreator
+chown -R root:root .
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+mkdir -pv $PKG/opt/qtcreator/lib64
+mkdir -pv $PKG/usr/share/applications
+mkdir -pv $PKG/usr/share/icons
+
+find $PKG/opt/qtcreator/lib -type f ! -xtype l  -name "*.so"  -exec mv -vt $PKG/opt/qtcreator/lib64 {} +
+find $PKG/opt/qtcreator/lib -type f ! -xtype l  -name "*.so.*"  -exec mv -vt $PKG/opt/qtcreator/lib64 {} +
+mv -v $PKG/opt/qtcreator/libexec/qtcreator/clang/bin/*  $PKG/opt/qtcreator/bin
+mv -v $PKG/opt/qtcreator/libexec/qtcreator/clang/lib/ClazyPlugin.so  $PKG/opt/qtcreator/lib64
+mv -v $PKG/opt/qtcreator/libexec/qtcreator/clang/lib/clang/19/include   $PKG/opt/qtcreator/
+mv -v $PKG/opt/qtcreator/lib/Qt/bin/*  $PKG/opt/qtcreator/bin
+mv -v $PKG/opt/qtcreator/share/applications/*   $PKG/usr/share/applications
+mv -v  $PKG/opt/qtcreator/share/icons/*  $PKG/usr/share/icons/
+
+# Remove empty dir
+
+rm -rvf $PKG/opt/qtcreator/lib/Qt/lib
+rm -rvf $PKG/opt/qtcreator/lib/qtcreator
+rm -rvf $PKG/opt/qtcreator/lib/Qt/bin
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/assetimporters
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/designer
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/iconengines
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/imageformats
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/platforminputcontexts
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/platforms
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/platformthemes
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/printsupport
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/sqldrivers
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/qmltooling
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/tls
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/wayland-decoration-client
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/wayland-graphics-integration-client
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/wayland-shell-integration
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins/xcbglintegrations
+rm -rvf $PKG/opt/qtcreator/lib/elfutils
+rm -rvf $PKG/opt/qtcreator/lib/qbs/plugins
+rm -rvf $PKG/opt/qtcreator/libexec/qtcreator/clang/bin
+rm -rvf $PKG/opt/qtcreator/libexec/qtcreator/clang/lib/clang/19
+rm -rvf $PKG/opt/qtcreator/share/applications
+rm -rvf $PKG/opt/qtcreator/share/icons
+rm -rvf $PKG/opt/qtcreator/lib/Qt/plugins
+rm -rvf $PKG/opt/qtcreator/lib/qbs
+rm -rvf $PKG/opt/qtcreator/libexec/qtcreator/clang/lib/clang
+rm -rvf $PKG/opt/qtcreator/libexec/qtcreator/clang/lib
+
+# symlinks creation
+
+cd $PKG/opt/qtcreator/lib64
+
+ln -s libAdvancedDockingSystem.so.14.0.84  libAdvancedDockingSystem.so.14
+ln -s libAggregation.so.14.0.84 libAggregation.so.14
+ln -s libCPlusPlus.so.14.0.84 libCPlusPlus.so.14
+ln -s libCmdBridgeClient.so.14.0.84 libCmdBridgeClient.so.14
+ln -s libExtensionSystem.so.14.0.84 libExtensionSystem.so.14
+ln -s libGLSL.so.14.0.84 libGLSL.so.14
+ln -s libKSyntaxHighlighting.so.14.0.84 libKSyntaxHighlighting.so.14
+ln -s libLanguageServerProtocol.so.14.0.84 libLanguageServerProtocol.so.14
+ln -s libLanguageUtils.so.14.0.84 libLanguageUtils.so.14
+ln -s libModeling.so.14.0.84 libModeling.so.14
+ln -s libNanotrace.so.14.0.84 libNanotrace.so.14
+
+ln -s libProParser.so.14.0.84 libProParser.so.14
+ln -s libQmlDebug.so.14.0.84 libQmlDebug.so.14
+ln -s libQmlDesignerCore.so.14.0.84 libQmlDesignerCore.so.14
+ln -s libQmlEditorWidgets.so.14.0.84 libQmlEditorWidgets.so.14
+ln -s libQmlJS.so.14.0.84 libQmlJS.so.14
+ln -s libSqlite.so.14.0.84 libSqlite.so.14
+ln -s libTerminalLib.so.14.0.84 libTerminalLib.so.14
+ln -s libTracing.so.14.0.84 libTracing.so.14
+ln -s libUtils.so.14.0.84 libUtils.so.14
+ln -s libZip.so.14.0.84 libZip.so.14
+ln -s libqbscore.so.2.5.0 libqbscore.so.2.5
+ln -s libqbscore.so.2.5 libqbscore.so
+ln -s libqlitehtml.so.14.0.84 libqlitehtml.so.14
+ln -s libqtkeychain.so.14.0.84 libqtkeychain.so.14
+ln -s libyaml-cpp.so.14.0.84 libyaml-cpp.so.14
+
+ln -s libQt6Concurrent.so.6.8.1 libQt6Concurrent.so.6
+ln -s libQt6Core.so.6.8.1 libQt6Core.so.6
+ln -s libQt6Core5Compat.so.6.8.1 libQt6Core5Compat.so.6
+ln -s libQt6DBus.so.6.8.1 libQt6DBus.so.6
+ln -s libQt6Designer.so.6.8.1 libQt6Designer.so.6
+ln -s libQt6DesignerComponents.so.6.8.1 libQt6DesignerComponents.so.6
+ln -s libQt6EglFSDeviceIntegration.so.6.8.1 libQt6EglFSDeviceIntegration.so.6
+ln -s libQt6EglFsKmsGbmSupport.so.6.8.1 libQt6EglFsKmsGbmSupport.so.6
+ln -s libQt6EglFsKmsSupport.so.6.8.1 libQt6EglFsKmsSupport.so.6
+ln -s libQt6Gui.so.6.8.1 libQt6Gui.so.6
+
+ln -s libQt6Help.so.6.8.1 libQt6Help.so.6
+ln -s libQt6LabsAnimation.so.6.8.1 libQt6LabsAnimation.so.6
+ln -s libQt6LabsFolderListModel.so.6.8.1 libQt6LabsFolderListModel.so.6
+ln -s libQt6LabsPlatform.so.6.8.1 libQt6LabsPlatform.so.6
+ln -s libQt6LabsQmlModels.so.6.8.1 libQt6LabsQmlModels.so.6
+ln -s libQt6LabsSettings.so.6.8.1 libQt6LabsSettings.so.6
+ln -s libQt6LabsSharedImage.so.6.8.1 libQt6LabsSharedImage.so.6
+ln -s libQt6LabsWavefrontMesh.so.6.8.1 libQt6LabsWavefrontMesh.so.6
+ln -s libQt6Network.so.6.8.1 libQt6Network.so.6
+ln -s libQt6OpenGL.so.6.8.1 libQt6OpenGL.so.6
+
+ln -s libQt6OpenGLWidgets.so.6.8.1 libQt6OpenGLWidgets.so.6
+ln -s libQt6PrintSupport.so.6.8.1 libQt6PrintSupport.so.6
+ln -s libQt6Qml.so.6.8.1 libQt6Qml.so.6
+ln -s libQt6QmlCompiler.so.6.8.1 libQt6QmlCompiler.so.6
+ln -s libQt6QmlCore.so.6.8.1 libQt6QmlCore.so.6
+ln -s libQt6QmlLocalStorage.so.6.8.1 libQt6QmlLocalStorage.so.6
+ln -s libQt6QmlMeta.so.6.8.1 libQt6QmlMeta.so.6
+ln -s libQt6QmlModels.so.6.8.1 libQt6QmlModels.so.6
+ln -s libQt6QmlNetwork.so.6.8.1 libQt6QmlNetwork.so.6
+ln -s libQt6QmlWorkerScript.so.6.8.1 libQt6QmlWorkerScript.so.6
+
+ln -s libQt6QmlXmlListModel.so.6.8.1 libQt6QmlXmlListModel.so.6
+ln -s libQt6Quick.so.6.8.1 libQt6Quick.so.6
+ln -s libQt6Quick3D.so.6.8.1 libQt6Quick3D.so.6
+ln -s libQt6Quick3DAssetImport.so.6.8.1 libQt6Quick3DAssetImport.so.6
+ln -s libQt6Quick3DAssetUtils.so.6.8.1 libQt6Quick3DAssetUtils.so.6
+ln -s libQt6Quick3DEffects.so.6.8.1 libQt6Quick3DEffects.so.6
+ln -s libQt6Quick3DGlslParser.so.6.8.1 libQt6Quick3DGlslParser.so.6
+ln -s libQt6Quick3DHelpers.so.6.8.1 libQt6Quick3DHelpers.so.6
+ln -s libQt6Quick3DHelpersImpl.so.6.8.1 libQt6Quick3DHelpersImpl.so.6
+ln -s libQt6Quick3DIblBaker.so.6.8.1 libQt6Quick3DIblBaker.so.6
+
+ln -s libQt6Quick3DParticleEffects.so.6.8.1 libQt6Quick3DParticleEffects.so.6
+ln -s libQt6Quick3DParticles.so.6.8.1 libQt6Quick3DParticles.so.6
+ln -s libQt6Quick3DRuntimeRender.so.6.8.1 libQt6Quick3DRuntimeRender.so.6
+ln -s libQt6Quick3DUtils.so.6.8.1 libQt6Quick3DUtils.so.6
+ln -s libQt6Quick3DXr.so.6.8.1 libQt6Quick3DXr.so.6
+ln -s libQt6QuickControls2.so.6.8.1 libQt6QuickControls2.so.6
+ln -s libQt6QuickControls2Basic.so.6.8.1 libQt6QuickControls2Basic.so.6
+ln -s libQt6QuickControls2BasicStyleImpl.so.6.8.1 libQt6QuickControls2BasicStyleImpl.so.6
+ln -s libQt6QuickControls2FluentWinUI3StyleImpl.so.6.8.1 libQt6QuickControls2FluentWinUI3StyleImpl.so.6
+ln -s libQt6QuickControls2Fusion.so.6.8.1 libQt6QuickControls2Fusion.so.6
+ln -s libQt6QuickControls2FusionStyleImpl.so.6.8.1 libQt6QuickControls2FusionStyleImpl.so.6
+ln -s libQt6QuickControls2Imagine.so.6.8.1 libQt6QuickControls2Imagine.so.6
+
+ln -s libQt6QuickControls2ImagineStyleImpl.so.6.8.1 libQt6QuickControls2ImagineStyleImpl.so.6
+ln -s libQt6QuickControls2Impl.so.6.8.1 libQt6QuickControls2Impl.so.6
+ln -s libQt6QuickControls2Material.so.6.8.1 libQt6QuickControls2Material.so.6
+ln -s libQt6QuickControls2MaterialStyleImpl.so.6.8.1 libQt6QuickControls2MaterialStyleImpl.so.6
+ln -s libQt6QuickControls2Universal.so.6.8.1 libQt6QuickControls2Universal.so.6
+ln -s libQt6QuickControls2UniversalStyleImpl.so.6.8.1 libQt6QuickControls2UniversalStyleImpl.so.6
+ln -s libQt6QuickDialogs2.so.6.8.1 libQt6QuickDialogs2.so.6
+ln -s libQt6QuickDialogs2QuickImpl.so.6.8.1 libQt6QuickDialogs2QuickImpl.so.6
+ln -s libQt6QuickDialogs2Utils.so.6.8.1 libQt6QuickDialogs2Utils.so.6
+ln -s libQt6QuickEffects.so.6.8.1 libQt6QuickEffects.so.6
+ln -s libQt6QuickLayouts.so.6.8.1 libQt6QuickLayouts.so.6
+ln -s libQt6QuickParticles.so.6.8.1 libQt6QuickParticles.so.6
+ln -s libQt6QuickShapes.so.6.8.1 libQt6QuickShapes.so.6
+ln -s libQt6QuickTemplates2.so.6.8.1 libQt6QuickTemplates2.so.6
+ln -s libQt6QuickTest.so.6.8.1 libQt6QuickTest.so.6
+ln -s libQt6QuickTimeline.so.6.8.1 libQt6QuickTimeline.so.6
+ln -s libQt6QuickTimelineBlendTrees.so.6.8.1 libQt6QuickTimelineBlendTrees.so.6
+ln -s libQt6QuickVectorImage.so.6.8.1 libQt6QuickVectorImage.so.6
+
+ln -s libQt6QuickVectorImageGenerator.so.6.8.1  libQt6QuickVectorImageGenerator.so.6
+ln -s libQt6QuickWidgets.so.6.8.1 libQt6QuickWidgets.so.6
+ln -s libQt6SerialPort.so.6.8.1 libQt6SerialPort.so.6
+ln -s libQt6ShaderTools.so.6.8.1 libQt6ShaderTools.so.6
+ln -s libQt6Sql.so.6.8.1 libQt6Sql.so.6
+
+ln -s libQt6Svg.so.6.8.1 libQt6Svg.so.6
+ln -s libQt6SvgWidgets.so.6.8.1 libQt6SvgWidgets.so.6
+ln -s libQt6Test.so.6.8.1 libQt6Test.so.6
+ln -s libQt6UiTools.so.6.8.1 libQt6UiTools.so.6
+ln -s libQt6WaylandClient.so.6.8.1  libQt6WaylandClient.so.6
+ln -s libQt6WaylandEglClientHwIntegration.so.6.8.1 libQt6WaylandEglClientHwIntegration.so.6
+
+ln -s libQt6Widgets.so.6.8.1 libQt6Widgets.so.6
+ln -s libQt6WlShellIntegration.so.6.8.1 libQt6WlShellIntegration.so.6
+ln -s libQt6XcbQpa.so.6.8.1 libQt6XcbQpa.so.6
+ln -s libQt6Xml.so.6.8.1 libQt6Xml.so.6
+ln -s libicudata.so.73.2  libicudata.so.73
+ln -s libicui18n.so.73.2 libicui18n.so.73
+ln -s libicuio.so.73.2 libicuio.so.73
+ln -s libicutest.so.73.2 libicutest.so.73
+ln -s libicutu.so.73.2 libicutu.so.73
+ln -s libicuuc.so.73.2 libicuuc.so.73
+
+# Don't ship .la files:
+rm -f $PKG/opt/qt6/lib/*.la
+
+cd $TMP
+
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded --remove-section=.comment --remove-section=.note 2> /dev/null || true
+
+mkdir -pv $PKG/etc/profile.d
+cat  $CWD/profile.d/$PRGNAM.sh > $PKG/etc/profile.d/$PRGNAM.sh
+chmod 0755 $PKG/etc/profile.d/*
+
+mkdir -pv $PKG/usr/doc/$PRGNAM-$VERSION
+install -Dvm 0644 $CWD/LICENSES/* -t $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -pv $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n --remove-rpaths --remove-tmp-rpaths $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
