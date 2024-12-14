@@ -20,6 +20,10 @@ You can download the official Qt installer from the
 Qt website.You need a Qt account in order to use the
 installer.
 
+I have added a sbopkg queue file in both qt-src and qt-bin
+folder.You can use that to install the packages using sbopkg.
+The queue file contains the dependencies in correct order.
+
 The attic folder contains broken and non working
 slackbuilds I may revisit them in the future.
 It contains two slackbuilds qtwebengine in qt-src and
