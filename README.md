@@ -24,5 +24,4 @@ embedded and mobile. Supported Platforms include Linux, OS X,
 Windows, VxWorks, QNX, Android, iOS, BlackBerry, Sailfish OS and
 others.
 
-# These slackbuilds are not in anyway endorsed by slackbuilds.org
-# or by slackware Linux.
+# These slackbuilds are not in anyway endorsed by slackbuilds.org or by slackware Linux.
