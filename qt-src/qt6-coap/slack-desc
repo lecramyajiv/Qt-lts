@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+        |-----handy-ruler------------------------------------------------------|
+qt6-coap: qt6-coap (CoAP client module)
+qt6-coap:
+qt6-coap: Coap is a protocol for Iot devices and machine to machine
+qt6-coap: communication.
+qt6-coap:
+qt6-coap:
+qt6-coap:
+qt6-coap:
+qt6-coap:
+qt6-coap: Homepage:https://qt.io
+qt6-coap:

@@ -1,0 +1,7 @@
+The Qt Interface Framework module provides both the tools
+and the core APIs, for you to implement Middleware APIs, Middleware
+Back ends, and Middleware Services. The Qt Interface Framework
+Generator provides a flexible way to define new APIs
+via an Interface Definition Language (IDL) and
+generate classes for use, from C++ and QML.
+

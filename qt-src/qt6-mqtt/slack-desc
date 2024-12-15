@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+        |-----handy-ruler------------------------------------------------------|
+qt6-mqtt: qt6-mqtt (Mqtt protocol)
+qt6-mqtt:
+qt6-mqtt: MQTT is an OASIS standard messaging protocol for the Internet
+qt6-mqtt: of Things. It is designed as an extremely lightweight publish
+qt6-mqtt: or subscription messaging transport that is ideal for connecting
+qt6-mqtt: remote devices with a small code  footprint and minimal network
+qt6-mqtt: bandwidth.
+qt6-mqtt:
+qt6-mqtt:
+qt6-mqtt: Homepage:https://qt.io
+qt6-mqtt:

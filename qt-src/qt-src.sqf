@@ -34,5 +34,10 @@ qt6-webchannel
 qt6-tools
 qt6-docs
 qt6-translations
+qt6-coap
+qt6-mqtt
+qt6-opcua
+qt6-applicationmanager
+qt6-interfaceframework
 qtcreator
 

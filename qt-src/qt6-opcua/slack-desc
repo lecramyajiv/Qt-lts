@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+         |-----handy-ruler------------------------------------------------------|
+qt6-opcua: qt6-opcua (OPC UA)
+qt6-opcua:
+qt6-opcua: OPC Unified Architecture (OPC UA) is a machine-to-machine
+qt6-opcua: communication protocol used for industrial automation and
+qt6-opcua: developed by the OPC Foundation. The OPC UA platform in an
+qt6-opcua: platform-independent service-oriented architecture that
+qt6-opcua: integrates individual OPC Classic specifications into an
+qt6-opcua: extensible framework.
+qt6-opcua:
+qt6-opcua: Homepage:https://qt.io
+qt6-opcua:
