@@ -5,6 +5,6 @@ DOWNLOAD="https://github.com/qt/qtinterfaceframework/archive/v6.8.1/qtinterfacef
 MD5SUM="0dfa5c3a788ac52eec9fc2ec4593672b"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
-REQUIRES="qt6-declarative qt6-remoteobjects qt6-tools qface"
+REQUIRES="qt6-declarative qt6-remoteobjects qt6-tools"
 MAINTAINER="Vijay Marcel"
 EMAIL="vijaymarcel@outlook.com"
