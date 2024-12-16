@@ -2,7 +2,11 @@
 
 This repo contains SlackBuild Script for Qt LTS
 
-It contains three folders qt-src,qt-bin and attic
+It contains four folders qt-src,qt-bin,attic and Gstreamer.
+
+Gstreamer version 1.24.9 is optionally needed by
+qt6-multimedia if not found it will give an warning
+but otherwise will build on stock slackware stable.
 
 qt-src builds invidual qt modules from source except
 for qt-webengine and qt-webview.
@@ -10,8 +14,9 @@ for qt-webengine and qt-webview.
 qt-bin downloads and builds invidual
 qt modules binary published by Qt. This does not
 contain qt-doc module so documentation isn't
-available. This is an unofficial binary
-installation. It downloads the binaries from the
+available. Apart from documentation coap,mqtt,opcua,application-manager
+and interface framework binary modules are not available.
+This an unofficial binary installation. It downloads the binaries from the
 official qt website and installs them.
 you can view them [here](https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_681/qt6_681/) ,
 [here](https://download.qt.io/online/qtsdkrepository/linux_x64/extensions/) and [here](https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/tools_qtcreator_preview/)
