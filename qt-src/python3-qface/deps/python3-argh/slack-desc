@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+            |-----handy-ruler------------------------------------------------------|
+python3-argh: python3-argh (Argh module)
+python3-argh:
+python3-argh: Argh builds on the power of argparse (which comes with Python)
+python3-argh: and makes it really easy to use. It eliminates
+python3-argh: the complex API and lets you "dispatch"
+python3-argh: ordinary Python functions as CLI commands.
+python3-argh:
+python3-argh:
+python3-argh:
+python3-argh: Homepage:https://github.com/neithere/argh/
+python3-argh:

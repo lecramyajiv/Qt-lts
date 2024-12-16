@@ -1,0 +1,5 @@
+Argh builds on the power of argparse (which comes with Python)
+and makes it really easy to use. It eliminates
+the complex API and lets you "dispatch"
+ordinary Python functions as CLI commands.
+

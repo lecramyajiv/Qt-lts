@@ -38,6 +38,7 @@ qt6-coap
 qt6-mqtt
 qt6-opcua
 qt6-applicationmanager
+python3-qface
 qt6-interfaceframework
 qtcreator
 

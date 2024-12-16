@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+             |-----handy-ruler------------------------------------------------------|
+python3-qface: python3-qface (Qt interface builder)
+python3-qface:
+python3-qface: QFace is a generator framework based on a common modern IDL.
+python3-qface: It is not a generator as such but enforces a
+python3-qface: common IDL format and provides a library to write your own generator.
+python3-qface: It is actually very easy to create your own generator and generate
+python3-qface: your custom solution based on your needs from the same IDL.
+python3-qface:
+python3-qface:
+python3-qface: Homepage:https://pelagicore.github.io/qface/
+python3-qface:

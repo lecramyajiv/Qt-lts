@@ -11,6 +11,9 @@ but otherwise will build on stock slackware stable.
 qt-src builds invidual qt modules from source except
 for qt-webengine and qt-webview.
 
+The qt-interfaceframework module is optionally dependent on
+qface.
+
 qt-bin downloads and builds invidual
 qt modules binary published by Qt. This does not
 contain qt-doc module so documentation isn't
@@ -34,7 +37,7 @@ slackbuilds I may revisit them in the future.
 It contains two slackbuilds qtwebengine in qt-src and
 qtcreator in qt-bin.
 
-About Qt:
+**About Qt:
 
 Qt is a cross-platform application development framework for desktop,
 embedded and mobile. Supported Platforms include Linux, OS X,
