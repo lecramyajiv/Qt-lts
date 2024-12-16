@@ -37,7 +37,7 @@ slackbuilds I may revisit them in the future.
 It contains two slackbuilds qtwebengine in qt-src and
 qtcreator in qt-bin.
 
-**About Qt:
+**About Qt:**
 
 Qt is a cross-platform application development framework for desktop,
 embedded and mobile. Supported Platforms include Linux, OS X,
