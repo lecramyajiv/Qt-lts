@@ -1,0 +1,191 @@
+#!/bin/bash
+
+# Slackware build script for gst-plugins-libav
+
+# Copyright 2024 Vijay Marcel
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+cd $(dirname $0) ; CWD=$(pwd)
+
+PRGNAM=gst-plugins-libav
+VERSION=${VERSION:-1.24.9}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_lec}
+PKGTYPE=${PKGTYPE:-tbz}
+nprocr=$(expr $(nproc) + 1)
+sys_arch=${sys_arch:-$(uname -m)}
+SRCNAM=${SRCNAM:-gst-libav}
+
+case "$sys_arch" in
+      i686) export ARCH=i686 ;;
+	x86_64) export ARCH=x86_64 ;;
+	     *) echo "This SlackBuild will not run on $sys_arch platform" && exit 1 ;;
+esac
+
+
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  exit 0
+fi
+
+TMP=${TMP:-/tmp/SBo}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i686" ]; then
+  SLKCFLAGS="-march=pentium4 -mtune=generic -pipe -O2 -fPIC"
+  LIBDIRSUFFIX=""
+  SLKLDFLAGS="-L/opt/lib -L/opt/lib64/gstreamer-1.0"
+elif [ "$ARCH" = "x86_64" ]; then
+  SLKCFLAGS="-march=x86-64 -mtune=generic -pipe -O2 -fPIC"
+  LIBDIRSUFFIX="64"
+  SLKLDFLAGS="-L/opt/lib64 -L/opt/lib64/gstreamer-1.0"
+else
+ echo "This SlackBuild will not run on $sys_arch platform" && exit 1
+fi
+
+set -e
+trap 'echo "$0 FAILED at line $LINENO!" | tee -a $OUTPUT/error-${PRGNAM}.log' ERR
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $SRCNAM-$VERSION
+tar xvf $CWD/$SRCNAM-$VERSION.tar.xz
+cd $SRCNAM-$VERSION
+chown -R root:root .
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+export CC=${CC:-gcc}
+export CXX=${CXX:-g++}
+
+export b=${b:-/opt/bin}
+export b1=${b1:-opt/meson/bin}
+export s=${s:-/opt/share}
+export s1=${s1:-opt/meson/share/polkit-1/actions}
+export l=${l:-/opt/lib${LIBDIRSUFFIX}}
+export l1=${l1:-$l/pkgconfig}
+export l2=${l2:-$l/cmake}
+export i=${i:-/opt/include}
+export i1=${i1:-$i/lensfun}
+export c=${c:-$s/cmake}
+export m=${m:-$s/Modules}
+export vmf=${vmf:-/usr/share/vmaf-3.0.0/model}
+export vmf1=${vmf1:-$vmf/other_models}
+export vmf2=${vmf2:-$vmf/vmaf_4k_rb_v0.6.2}
+export vmf3=${vmf3:-$vmf/vmaf_float_b_v0.6.3}
+export vmf4=${vmf4:-$vmf/vmaf_rb_v0.6.2}
+export vmf5=${vmf5:-$vmf/vmaf_rb_v0.6.3}
+
+export v1=${v1:-$i/vulkan}
+export va=${va:-$v1/utility}
+export v2=${v2:-$i/vma}
+export v3=${v3:-$i/vk_video}
+export v4=${v4:-$i/spirv_cross}
+export v5=${v5:-$i/spirv-tools}
+export v6=${v6:-$i/SPIRV-Reflect}
+export vb=${vb:-$v6/include/spirv/unified1}
+export v7=${v7:-$i/spirv}
+export vc=${vc:-$v7/1.0}
+export vd=${vc:-$v7/1.1}
+export ve=${vc:-$v7/1.2}
+export vf=${vc:-$v7/unified1}
+export v8=${v8:-$i/slang}
+export v9=${v9:-$i/shaderc}
+export vg=${vg:-$i/dxc}
+export vh=${vh:-$i/glslang}
+export vj=${vj:-$vh/Include}
+export vk=${vk:-$vh/MachineIndependent}
+export vl=${vl:-$vh/Public}
+export vm=${vm:-$vh/SPIRV}
+
+export g0=${g0:-$i/gstreamer-1.0}
+export g=${g:-$i/gstreamer-1.0/gst}
+export g1=${g1:-$g/base}
+export g2=${g2:-$g/check}
+export g3=${g3:-$g/controller}
+export g4=${g4:-$g/net}
+export g5=${g5:-$l/girepository-1.0}
+export g6=${g6:-$l/gstreamer-1.0}
+export g7=${g7:-/opt/libexec/gstreamer-1.0}
+export g8=${g8:-$i/GL}
+export g9={g9:-/opt/lib64/gstreamer-1.0/include/gst/gl}
+
+export CFLAGS="$SLKCFLAGS"
+export CXXFLAGS="$SLKCFLAGS"
+export LDFLAGS="$SLKLDFLAGS"
+
+PYVER=$(python3 -c 'import sys; print("%d.%d" % sys.version_info[:2])')
+export PYTHONPATH=/opt/python$PYVER/site-packages:/usr/lib64/python3.9/site-packages/
+
+export PATH=$b:$b1:$s:$s1:$l:$l1:$l2:$i:$i1:$c:$m:$vmf:$vmf1:$vmf2:$vmf3:$vmf4:$vmf5:$v1:$va:$v2:$v3:$v4:$v5:$v6:$vb:$v7:$vc:$vd:$ve:$vf:$v8:$v9:$vg:$vh:$vj:$vk:$vl:$vm:$g:$g1:$g2:$g3:$g4:$g5:$g6:$g7:$g8:$g9:$PATH
+export PKG_CONFIG_PATH=$l:$l1:$PKG_CONFIG_PATH
+export LD_LIBRARY_PATH=$l:$LD_LIBRARY_PATH
+
+mkdir build
+meson setup build -Dc_args="$SLKCFLAGS" -Dcpp_args="$SLKCFLAGS -I$v1 -I$v2 -I$v3 -I$v4 -I$v5 -I$v6 -I$v7 -I$v8 -I$v9 -I$va -I$vb -I$vc -I$vd -I$ve -I$vf -I$vg -I$vh -I$vj -I$vk -I$vl -I$vm" -Dc_link_args="$SLKLDFLAGS -I$v1 -I$v2 -I$v3 -I$v4 -I$v5 -I$v6 -I$v7 -I$v8 -I$v9 -I$va -I$vb -I$vc -I$vd -I$ve -I$vf -I$vg -I$vh -I$vj -I$vk -I$vl -I$vm" -Dcpp_link_args="$SLKLDFLAGS" \
+  --prefix=/opt \
+  --libdir=lib${LIBDIRSUFFIX} \
+  --libexecdir=/opt/libexec \
+  --bindir=/opt/bin \
+  --sbindir=/opt/sbin \
+  --includedir=/opt/include \
+  --datadir=/opt/share \
+  --mandir=/opt/man \
+  --sysconfdir=/opt/etc \
+  --localstatedir=/opt/var \
+  --buildtype=release
+
+meson compile -C build
+DESTDIR=$PKG meson install -C build
+
+rm -f $PKG/{,opt/}lib${LIBDIRSUFFIX}/*.la
+
+find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
+  | cut -f 1 -d : | xargs strip --strip-unneeded --remove-section=.comment --remove-section=.note 2> /dev/null || true
+
+# Compress and if needed symlink the man pages:
+if [ -d $PKG/opt/man ]; then
+  ( cd $PKG/opt/man
+    for manpagedir in $(find . -type d -name "man*") ; do
+      ( cd $manpagedir
+        for eachpage in $( find . -type l -maxdepth 1) ; do
+          ln -s $( readlink $eachpage ).gz $eachpage.gz
+          rm $eachpage
+        done
+        gzip -9 *.?
+      )
+    done
+  )
+fi
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a AUTHORS COPYING README.md $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+/sbin/makepkg -l y -c n --remove-rpaths --remove-tmp-rpaths $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE

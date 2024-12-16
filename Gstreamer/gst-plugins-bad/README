@@ -1,0 +1,8 @@
+GStreamer Bad Plug-ins is a set of plug-ins that aren't tested well
+enough, or the code is not of good enough quality. They might be
+close to being good quality, but they're missing something - be it a
+code review, some documentation, a set of tests, a real live
+maintainer, or some actual wide use.
+
+
+optional dependencies: avtp, libmicrodns, libnice, tinyalsa
