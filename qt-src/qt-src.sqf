@@ -38,6 +38,14 @@ qt6-coap
 qt6-mqtt
 qt6-opcua
 qt6-applicationmanager
+antlr4
+click
+python3-pytest
+python3-watchdog
+python3-argh
+python3-humanfriendly
+python3-colored-logs
+python3-MarkupSafe
 python3-qface
 qt6-interfaceframework
 qtcreator
